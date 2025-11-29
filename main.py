@@ -285,12 +285,14 @@ MAIL_APP_PW = os.environ.get("PASSWORD_KEY")
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
-    if request.method == "POST":
-        data = request.form
-        send_email(data["name"], data["email"], data["phone"], data["message"])
-        return render_template("contact.html", msg_sent=True)
-    return render_template("contact.html", msg_sent=False)
-
+    try:
+        if request.method == "POST":
+            data = request.form
+            send_email(data["name"], data["email"], data["phone"], data["message"])
+            return render_template("contact.html", msg_sent=True)
+        return render_template("contact.html", msg_sent=False)
+    except:
+        return "please be patient i will add this stuff in the near future"
 
 def send_email(name, email, phone, message):
     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nPhone: {phone}\nMessage:{message}"
@@ -301,4 +303,4 @@ def send_email(name, email, phone, message):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=False, port=5001)
