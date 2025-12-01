@@ -78,7 +78,6 @@ class BlogPost(db.Model):
     comments = relationship("Comment", back_populates="parent_post")
 
 
-# Create a User table for all your registered users
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
